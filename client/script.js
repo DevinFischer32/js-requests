@@ -9,7 +9,6 @@
 */
 const sayHelloButton = document.querySelector('#say-hello-button')
 
-
 // PROBLEM 2
 /*
     Create a function that changes sayHelloButton's background color to black and its text color to white (you can use the .style object or create a CSS class and use classList.add)
@@ -198,4 +197,22 @@ document.getElementById('query-button').addEventListener('click',getQuery)
     Based on what we did earlier to display this type of data, write code that will display the response in your HTML document. 
 */
 
-// CODE HERE 
+function createFood(event){
+    event.preventDefault()
+    let foodInput = document.getElementById('fruity')
+    let body ={
+      newFood: foodInput.value
+    }
+    axios.post('http://localhost:3000/food',body)
+    .then(res =>{
+        for(let i=0; i < res.data.length ; i++){
+          let newul = document.querySelector('body')
+          let newli = document.createElement('li')
+          newli.textContent = res.data.at(-1)
+          res.data--
+          newul.appendChild(newli)
+      }
+    })  
+}
+
+fruityBtn.addEventListener('click',createFood)
